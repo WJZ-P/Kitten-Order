@@ -2,7 +2,7 @@ sky:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     host: localhost
-    port: 30306
+    port: 3306
     database: sky_take_out
     username: ''         # 替换为空字符串
     password: ''         # 替换为空字符串

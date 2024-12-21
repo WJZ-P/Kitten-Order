@@ -53,7 +53,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
     /**
      * 通过knife4j生成接口文档
-     * @return
+     * @return docket
      */
     @Bean
     public Docket docket() {
