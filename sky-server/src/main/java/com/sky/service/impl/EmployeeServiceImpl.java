@@ -66,12 +66,16 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employee;
     }
 
+    /**
+     * 新增员工接口
+     */
     @Override
     public void save(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
 
-        // 对象属性拷贝
+        // 对象属性拷贝，把DTO里面的属性拷贝到实体里去，但是实体里还有DTO中没有的属性
         BeanUtils.copyProperties(employeeDTO, employee);
+        //所以在下面要单独设置实体的其余属性。
 
         // 设置账号状态
         employee.setStatus(StatusConstant.ENABLE);
@@ -89,6 +93,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setCreateUser(id);
         employee.setUpdateUser(id);
 
+        // 获取到了之后就应该remove删除，否则会造成内存泄漏。
+        BaseContext.removeCurrentId();
         employeeMapper.insert(employee);
     }
 

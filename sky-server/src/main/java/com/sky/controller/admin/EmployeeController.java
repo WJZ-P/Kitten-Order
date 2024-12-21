@@ -54,7 +54,7 @@ public class EmployeeController {
                 jwtProperties.getAdminSecretKey(),
                 jwtProperties.getAdminTtl(),
                 claims);
-
+        log.info("登录的jwt令牌为{}",token);
         EmployeeLoginVO employeeLoginVO = EmployeeLoginVO.builder()
                 .id(employee.getId())
                 .userName(employee.getUsername())
@@ -68,7 +68,7 @@ public class EmployeeController {
     @PostMapping
     @ApiOperation(value = "新增员工")
     public Result save(@RequestBody EmployeeDTO employeeDTO) {
-        log.info("新增员工{}", employeeDTO);
+        log.info("新增员工{}", employeeDTO);//里面的花括号是占位符。
         employeeService.save(employeeDTO);
         return Result.success();
     }
