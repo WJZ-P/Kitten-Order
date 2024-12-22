@@ -83,10 +83,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         // 设置密码
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
 
-        // 设置创建时间和修改时间
-        LocalDateTime now = LocalDateTime.now();
-        employee.setCreateTime(now);
-        employee.setUpdateTime(now);
+//        // 设置创建时间和修改时间，这里注释掉可以，是因为最下面调用了insert，而我们的自定义注解已经实现了公用字段的填充。
+//        LocalDateTime now = LocalDateTime.now();
+//        employee.setCreateTime(now);
+//        employee.setUpdateTime(now);
 
         // 记录创建人和修改人ID
         Long id = BaseContext.getCurrentId();
