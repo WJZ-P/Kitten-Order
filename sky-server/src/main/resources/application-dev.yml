@@ -17,3 +17,5 @@ sky:
   wechat:
     app-id: ''           # 替换为空字符串
     app-secret: ''       # 替换为空字符串
+  myoss:
+   url: 'https://chatbot.weixin.qq.com/weixinh5/webapp/pfnYYEumBeFN7Yb3TAxwrabYVOa4R9/cos/upload'

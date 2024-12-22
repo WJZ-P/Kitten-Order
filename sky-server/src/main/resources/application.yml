@@ -52,5 +52,6 @@ sky:
   wechat:
     appid: ${sky.wechat.app-id}
     secret: ${sky.wechat.app-secret}
-
+  myoss:
+    url: ${sky.myoss.url}
 

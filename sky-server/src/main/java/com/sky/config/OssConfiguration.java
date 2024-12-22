@@ -1,11 +1,14 @@
 package com.sky.config;
 
 import com.sky.properties.AliOssProperties;
+import com.sky.properties.MyOssProperties;
 import com.sky.utils.AliOssUtil;
+import com.sky.utils.MyOssUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * 配置类，创建AliOssUtils对象
@@ -21,5 +24,12 @@ public class OssConfiguration {
                 aliOssProperties.getAccessKeyId(),
                 aliOssProperties.getAccessKeySecret(),
                 aliOssProperties.getBucketName());
+    }
+    @Bean
+    @ConditionalOnMissingBean
+    public MyOssUtil myOssUtil(MyOssProperties myOssProperties){
+        log.info("开始创建我的上传工具类对象{}",myOssProperties);
+        //下面新建的是一个新的RestTemplate
+        return new MyOssUtil(myOssProperties.getUrl(),new RestTemplate());
     }
 }

@@ -2,6 +2,7 @@ package com.sky.controller.admin;
 
 import com.sky.result.Result;
 import com.sky.utils.AliOssUtil;
+import com.sky.utils.MyOssUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +27,8 @@ public class CommonController {
     // 依赖注入
     @Autowired
     private AliOssUtil aliOssUtil;
-
+    @Autowired
+    private MyOssUtil myOssUtil;
     @PostMapping("upload")
     @ApiOperation("文件上传")
     public Result<String> upload(MultipartFile file) {
@@ -48,4 +50,17 @@ public class CommonController {
         }
     }
 
+    @PostMapping("uploadMedia")
+    @ApiOperation("媒体文件上传")
+    public Result<String> uploadMedia(MultipartFile file){
+        log.info("媒体文件上传{}",file);
+        try{
+            String filePath = myOssUtil.uploadMedia(file);
+            return Result.success(filePath);
+
+        }catch (IOException e){
+            e.printStackTrace();
+            return Result.error("媒体文件上传失败");
+        }
+    }
 }
