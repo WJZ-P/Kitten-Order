@@ -40,4 +40,4 @@ build/
 .DS_Store
 
 ### 配置文件不要放 ###
-sky-server.src.main.resources.application-dev.yml
+sky-server/src/main/resources/application-dev.yml
