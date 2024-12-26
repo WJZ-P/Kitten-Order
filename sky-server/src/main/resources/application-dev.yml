@@ -16,7 +16,7 @@ sky:
     port: 6379
     password: wjz3165210
   wechat:
-    app-id: ''           # 替换为空字符串
-    app-secret: ''       # 替换为空字符串
+    app-id: 'wxab5eced30a1f5eeb'           # 替换为空字符串
+    app-secret: '21fa31a147d946ab1e0dfd84322c3e88'       # 替换为空字符串
   myoss:
    url: 'https://chatbot.weixin.qq.com/weixinh5/webapp/pfnYYEumBeFN7Yb3TAxwrabYVOa4R9/cos/upload'

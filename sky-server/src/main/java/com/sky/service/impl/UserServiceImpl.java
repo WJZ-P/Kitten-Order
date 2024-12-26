@@ -67,6 +67,7 @@ public class UserServiceImpl implements UserService {
         reqParams.put("secret", weChatProperties.getSecret());
         reqParams.put("js_code", code);
         reqParams.put("grant_type", "authorization_code");
+        log.info(reqParams.toString());
         String json = HttpClientUtil.doGet(WX_LOGIN, reqParams);
         log.info("微信接口返回的json: {}", json);
 
