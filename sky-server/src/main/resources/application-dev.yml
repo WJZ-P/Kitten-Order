@@ -12,8 +12,9 @@ sky:
     access-key-secret: '' # 替换为空字符串
     bucket-name: big-event-danyhug
   redis:
-    host: localhost
+    host: 101.126.90.250
     port: 6379
+    password: wjz3165210
   wechat:
     app-id: ''           # 替换为空字符串
     app-secret: ''       # 替换为空字符串

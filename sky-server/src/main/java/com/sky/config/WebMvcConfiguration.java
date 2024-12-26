@@ -57,7 +57,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
      */
     @Bean
     public Docket docket() {
-        log.info("准备通过knife4j生成接口文档");
+        log.info("准备通过knife4j生成接口文档:http://127.0.0.1:8080/doc.html");
         ApiInfo apiInfo = new ApiInfoBuilder()
                 .title("猫猫点餐项目接口文档")
                 .version("1.0")
