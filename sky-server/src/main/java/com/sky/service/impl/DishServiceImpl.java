@@ -45,6 +45,8 @@ public class DishServiceImpl implements DishService {
         Dish dish = new Dish();
         BeanUtils.copyProperties(dishDTO, dish);
 
+        //默认菜品是开启售卖的
+        dish.setStatus(1);
         // 向菜品表插入一条记录
         dishMapper.insert(dish);
 
@@ -179,7 +181,11 @@ public class DishServiceImpl implements DishService {
      */
     @Override
     public void startOrStop(Integer status, Long id) {
-
+        //这里要进行实现才行
+        Dish dish=new Dish();
+        dish.setStatus(status);
+        dish.setId(id);
+        dishMapper.update(dish);
     }
 
     /**

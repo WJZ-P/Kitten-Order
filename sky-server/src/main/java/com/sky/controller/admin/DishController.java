@@ -60,7 +60,7 @@ public class DishController {
         log.info("启用或停用菜品：{}", id);
         dishService.startOrStop(status, id);
         clearRedis("dish_*");
-        return Result.success();
+        return Result.success("菜品状态成功更改为"+status);
     }
 
     @DeleteMapping

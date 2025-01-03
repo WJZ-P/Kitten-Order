@@ -45,8 +45,8 @@ public class CategoryServiceImpl implements CategoryService {
         //属性拷贝
         BeanUtils.copyProperties(categoryDTO, category);
 
-        //分类状态默认为禁用状态0
-        category.setStatus(StatusConstant.DISABLE);
+        //分类状态默认为启用状态才对
+        category.setStatus(StatusConstant.ENABLE);
 
         //设置创建时间、修改时间、创建人、修改人
         category.setCreateTime(LocalDateTime.now());
@@ -128,6 +128,7 @@ public class CategoryServiceImpl implements CategoryService {
      * @return
      */
     public List<Category> list(Integer type) {
+        log.info("要查询的类型为{}",type);
         return categoryMapper.list(type);
     }
 }
