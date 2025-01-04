@@ -70,6 +70,14 @@ public class OrderController {
         orderService.confirm(ordersConfirmDTO);
         return Result.success();
     }
+    /**
+     * 接受所有订单
+     */
+    @PutMapping("/confirmAll")
+    public Result<String> confirmAll(){
+        orderService.confirmAll();
+        return Result.success("成功接受所有订单");
+    }
 
     /**
      * 拒单

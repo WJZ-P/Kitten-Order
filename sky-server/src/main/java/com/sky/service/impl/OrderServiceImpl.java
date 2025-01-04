@@ -105,7 +105,8 @@ public class OrderServiceImpl implements OrderService {
         BeanUtils.copyProperties(ordersSubmitDTO, orders);
         orders.setOrderTime(LocalDateTime.now());
         orders.setPayStatus(Orders.UN_PAID);
-        orders.setStatus(Orders.PENDING_PAYMENT);
+        //orders.setStatus(Orders.PENDING_PAYMENT);
+        orders.setStatus(Orders.TO_BE_CONFIRMED);//我们用校园卡支付，就跳过待支付片段
         orders.setNumber(String.valueOf(System.currentTimeMillis()));
         orders.setAddress(addressBook.getDetail());
         orders.setPhone(addressBook.getPhone());
@@ -552,6 +553,14 @@ public class OrderServiceImpl implements OrderService {
         map.put("orderId", id);
         map.put("content", "订单号：" + orders.getNumber());
         webSocketServer.sendToAllClient(JSON.toJSONString(map));
+    }
+
+    @Override
+    /**
+     * 接受所有订单
+     */
+    public void confirmAll() {
+        orderMapper.acceptAll();
     }
 
 }

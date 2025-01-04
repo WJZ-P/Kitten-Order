@@ -20,7 +20,7 @@ public class OrderTask {
     /**
      * 处理超时订单的方法
      */
-    @Scheduled(cron = "0 * * * * ? ")   // 每分钟触发一次
+    @Scheduled(cron = "0 30 12 * * ? ")   // 每天十二点半触发。
     public void processTimeoutOrders() {
         log.info("处理超时订单");
         // 获取超时订单 当前时间 - 15

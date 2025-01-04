@@ -44,6 +44,12 @@
         where id = #{id}
     </update>
 
+    <update id="acceptAll">
+        update orders
+        SET status = 1
+        where status = 2
+    </update>
+
     <select id="pageQuery" resultType="Orders">
         select * from orders
         <where>

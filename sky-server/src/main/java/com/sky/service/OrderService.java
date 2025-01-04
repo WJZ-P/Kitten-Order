@@ -109,4 +109,9 @@ public interface OrderService {
      * @param id
      */
     void reminder(Long id);
+
+    /**
+     * 接受所有订单 全部接单
+     */
+    void confirmAll();
 }
