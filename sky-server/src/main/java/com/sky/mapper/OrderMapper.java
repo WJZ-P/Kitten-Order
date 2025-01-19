@@ -3,9 +3,11 @@ package com.sky.mapper;
 import com.github.pagehelper.Page;
 import com.sky.dto.GoodsSalesDTO;
 import com.sky.dto.OrdersPageQueryDTO;
+import com.sky.entity.OrderDetail;
 import com.sky.entity.Orders;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -94,4 +96,15 @@ public interface OrderMapper {
     Orders getByNumber(String orderNumber);
 
     void acceptAll();
+
+    //把所有已接受订单变成已完成
+    @Update("update orders set status = 5 where status = 3")
+    void deliverAll();
+
+    //搜索所有的已接受订单
+    @Select("select * from orders where status = 3")
+    List<Orders> getPendingOrders();
+
+    @Select("select * from order_detail where order_id = #{orderID}")
+    List<OrderDetail> getPendingOrderDetail(Long orderID);
 }

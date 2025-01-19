@@ -52,4 +52,6 @@ public interface ReportService {
      */
     void exportExcel(HttpServletResponse resp);
 
+    void exportPendingOrders(HttpServletResponse resp);
+
 }

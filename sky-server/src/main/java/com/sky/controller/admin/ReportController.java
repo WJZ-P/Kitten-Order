@@ -65,6 +65,7 @@ public class ReportController {
         return Result.success(reportService.getOrderStatistics(begin, end));
     }
 
+
     /**
      * 销量排名统计
      *
@@ -88,4 +89,9 @@ public class ReportController {
     public void exportExcel(HttpServletResponse resp) {
         reportService.exportExcel(resp);
     }
+
+    /**
+     * 导出待派单的数据。
+     *
+     */
 }

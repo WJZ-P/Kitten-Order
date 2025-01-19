@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+
 @RestController("userOrderController")
 @ApiOperation("订单接口")
 @RequestMapping("/user/order")
@@ -25,6 +27,9 @@ public class OrderController {
     @PostMapping("/submit")
     @ApiOperation("用户下单")
     public Result<OrderSubmitVO> submit(@RequestBody OrdersSubmitDTO dto) {
+        //这里为了减去固定的一块打包+六块配送费
+        dto.setAmount(dto.getAmount().subtract(new BigDecimal(7)));
+        log.info("用户要下单了！{}",dto);
         OrderSubmitVO orderSubmitVO = orderService.submitOrder(dto);
         return Result.success(orderSubmitVO);
     }
@@ -38,7 +43,6 @@ public class OrderController {
     @PutMapping("/payment")
     @ApiOperation("订单支付")
     public Result<OrderPaymentVO> payment(@RequestBody OrdersPaymentDTO ordersPaymentDTO) throws Exception {
-        log.info("订单支付：{}", ordersPaymentDTO);
         log.info("订单支付：{}", ordersPaymentDTO);
         OrderPaymentVO orderPaymentVO = orderService.payment(ordersPaymentDTO);
         log.info("生成预支付交易单：{}", orderPaymentVO);

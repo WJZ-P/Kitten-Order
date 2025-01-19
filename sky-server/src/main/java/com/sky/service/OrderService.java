@@ -114,4 +114,6 @@ public interface OrderService {
      * 接受所有订单 全部接单
      */
     void confirmAll();
+
+    void deliverAll();
 }

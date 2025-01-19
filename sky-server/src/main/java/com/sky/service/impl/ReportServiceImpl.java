@@ -5,12 +5,15 @@ import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import com.sky.entity.Category;
+import com.sky.entity.OrderDetail;
+import com.sky.mapper.CategoryMapper;
+import com.sky.service.CategoryService;
+import com.sky.service.DishService;
+import com.sky.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang.StringUtils;
@@ -24,11 +27,6 @@ import com.sky.mapper.OrderMapper;
 import com.sky.mapper.UserMapper;
 import com.sky.service.ReportService;
 import com.sky.service.WorkspaceService;
-import com.sky.vo.BusinessDataVO;
-import com.sky.vo.OrderReportVO;
-import com.sky.vo.SalesTop10ReportVO;
-import com.sky.vo.TurnoverReportVO;
-import com.sky.vo.UserReportVO;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -44,6 +42,12 @@ public class ReportServiceImpl implements ReportService {
 
     @Autowired
     private WorkspaceService workspaceService;
+
+    @Autowired
+    private DishService dishService;
+
+    @Autowired
+    private CategoryMapper categoryMapper;
 
     /**
      * 营业额统计
@@ -286,6 +290,47 @@ public class ReportServiceImpl implements ReportService {
             } catch (Exception e2) {
                 e2.printStackTrace();
             }
+        }
+
+    }
+
+    @Override
+    public void exportPendingOrders(HttpServletResponse resp) {
+        // 先查到所有的待派送订单
+        List<Orders> pendingOrders = orderMapper.getPendingOrders();
+        try (InputStream in = this.getClass().getClassLoader().getResourceAsStream("templates/今日订单.xlsx")) {
+            XSSFWorkbook excel = new XSSFWorkbook(in);
+            // 获取要写入的第一页
+            XSSFSheet sheet = excel.getSheetAt(0);
+            //这里设置当前日期
+            sheet.getRow(1).getCell(1).setCellValue(new Date().toString());
+            // 写入数据
+            int currentRow = 8 - 1;
+            for (Orders pendingOrder : pendingOrders) {//根据不同的订单来
+                //先看看这个订单点了几道菜。
+                List<OrderDetail> pendingOrderDetails = orderMapper.getPendingOrderDetail(pendingOrder.getId());
+                for (int j = 0; j < pendingOrderDetails.size(); j++) {
+                    //先查菜品信息
+                    DishVO dishVO= dishService.getByIdWithFlavor(pendingOrderDetails.get(j).getDishId());
+                    //然后查找分类信息
+                    Category category=categoryMapper.searchName(dishVO.getCategoryId());
+
+                    //下面开始写入文档
+
+                    XSSFRow row = sheet.getRow(currentRow);
+                    //设置订单号
+                    row.getCell(1).setCellValue(pendingOrder.getId());//Number才是订单号但是实际上太长了
+                    //设置日期
+                    row.getCell(2).setCellValue(String.valueOf(pendingOrder.getOrderTime()));
+
+
+
+                }
+
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
     }

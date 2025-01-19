@@ -113,6 +113,15 @@ public class OrderController {
     }
 
     /**
+     * 派送所有订单
+     */
+    @PutMapping("deliverAll")
+    public Result<String> deliverAll(){
+        orderService.deliverAll();
+        return Result.success("完成所有派送！");
+    }
+
+    /**
      * 完成订单
      *
      * @return
